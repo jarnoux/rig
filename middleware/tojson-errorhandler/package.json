@@ -1,0 +1,7 @@
+{
+    "name": "tojson-errorhandler",
+    "version": "0.0.1",
+    "main": "tojson-errorhandler.js",
+    "dependencies": {
+    }
+}
