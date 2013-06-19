@@ -4,6 +4,34 @@
   "version": "0.0.1",
   "main": "rig.js",
   "dependencies": {
-    "express": "3.x"
-  }
+    "express": "3.x",
+    "async": "0.x.x",
+    "handlebars": "1.x",
+    "colors": "0.6.x",
+    "express-validator": "0.3.x"
+  },
+  "readmeFilename": "README.md",
+  "gitHead": "c4ea8ab1c312cabba7d76ddc04a49bd6b1aa187b",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jarnoux/rig.js.git"
+  },
+  "keywords": [
+    "rig",
+    "pipe",
+    "express",
+    "registry",
+    "dispatcher",
+    "web",
+    "app",
+    "webapp",
+    "framework",
+    "platform"
+  ],
+  "author": "Jacques Arnoux",
+  "license": "BSD"
 }
