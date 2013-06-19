@@ -1,7 +1,7 @@
 var path     = require('path'),
-    Config   = require('lib/config'),
-    Router   = require('lib/router'),
-    Registry = require('middleware/registry'),
+    Config   = require('./lib/config'),
+    Router   = require('./lib/router'),
+    Registry = require('./middleware/registry'),
     express  = require('express'),
     Rig = function (options) {
         var that = this;
@@ -28,13 +28,16 @@ var path     = require('path'),
             registry: this.registry,
             routes  : options.routes
         });
-        this.router.map(this.app);
 
         this.app.engine('.html', registry.get('middleware.hb-adapter'));
     };
 
-Rig.prototype.register = function(name, resource) {
+Rig.prototype.register = function (name, resource) {
     this.registry.register(name, resource);
+};
+
+Rig.prototype.map = function () {
+    this.router.map(this.app);
 };
 
 module.exports = Rig;

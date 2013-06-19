@@ -1,5 +1,5 @@
 {
-  "name": "rig.js",
+  "name": "rig",
   "description": "A barepipe platform for node webapps",
   "version": "0.0.1",
   "main": "rig.js",
