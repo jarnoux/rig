@@ -1,7 +1,7 @@
 var path     = require('path'),
     Config   = require('lib/config'),
-    Registry = require('middleware/registry'),
     Router   = require('lib/router'),
+    Registry = require('middleware/registry'),
     express  = require('express'),
     Rig = function (options) {
         var that = this;
@@ -12,16 +12,16 @@ var path     = require('path'),
         this.registry = new Registry(new Config(options.config));
         this.registry.register(path.resolve(__dirname, 'middleware'));
         this.registry.register({
-            'app.router'           : function () {return that.app.router; },
-            'express.static'       : express.static.bind(null, __dirname + '/static'),
-            'express.logger'       : express.logger,
-            'express.query'        : express.query,
-            'express.bodyParser'   : express.bodyParser,
-            'express.cookieParser' : express.cookieParser,
-            'express.session'      : express.session,
-            'express.csrf'         : express.csrf,
-            'express.errorHandler' : express.errorHandler,
-            'rig.registry'  : registry.middleware.bind(registry)
+            'middleware.router'      : function () {return that.app.router; },
+            'middleware.static'      : express.static.bind(null, __dirname + '/static'),
+            'middleware.logger'      : express.logger,
+            'middleware.query'       : express.query,
+            'middleware.bodyParser'  : express.bodyParser,
+            'middleware.cookieParser': express.cookieParser,
+            'middleware.session'     : express.session,
+            'middleware.csrf'        : express.csrf,
+            'middleware.errorHandler': express.errorHandler,
+            'middleware.registry'    : registry.middleware.bind(registry)
         });
 
         this.router = new Router({
@@ -33,8 +33,8 @@ var path     = require('path'),
         this.app.engine('.html', registry.get('middleware.hb-adapter'));
     };
 
-Rig.prototype.getApp = function() {
-    return this.app;
+Rig.prototype.register = function(name, resource) {
+    this.registry.register(name, resource);
 };
 
 module.exports = Rig;
