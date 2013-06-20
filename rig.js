@@ -8,7 +8,7 @@ var path     = require('path'),
     Rig = function (options) {
         'use strict';
         var that = this,
-            staticConfig;
+            staticPath;
 
         this.app = express();
 
@@ -16,14 +16,14 @@ var path     = require('path'),
         this.registry = new Registry(new Config(options.config));
         this.registry.register(path.resolve(__dirname, 'middleware'));
 
-        staticConfig = this.registry.getConfig('middleware.static');
-        if (staticConfig) {
-            staticConfig = path.resolve(process.cwd(), staticConfig);
+        staticPath = this.registry.getConfig('middleware.static');
+        if (staticPath) {
+            staticPath = path.resolve(process.cwd(), staticPath);
         }
         this.registry.register({
             'middleware.router'      : function () {return that.app.router; },
             // make static root understand relative path
-            'middleware.static'      : express.static.bind(null, staticConfig),
+            'middleware.static'      : express.static.bind(null, staticPath),
             'middleware.logger'      : express.logger,
             'middleware.query'       : express.query,
             'middleware.bodyParser'  : express.bodyParser,
