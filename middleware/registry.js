@@ -41,6 +41,9 @@ Registry.prototype.register = function (name, resource) {
 
 Registry.prototype.get = function (name) {
     'use strict';
+    if (!name) {
+        return this.__resourceStore__;
+    }
     return this.__resourceStore__[name];
 };
 
@@ -64,10 +67,7 @@ Registry.prototype._registerASingleResource = function (name, resource) {
             configuredResource = this.__config__.ure(resource, name);
         } catch (e) {
             if (e instanceof this.__config__.ConfigurationError) {
-                if (name !== 'middleware.registry') {
-                    console.warn(e.message);
-                    console.warn(name + ' registration skipped');
-                }
+                // it's not listed in the config, skip it
                 return;
             }
             // else it's probably a constructor trying to set an undefined "this"

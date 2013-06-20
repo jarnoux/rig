@@ -16,10 +16,12 @@ var path     = require('path'),
         this.registry = new Registry(new Config(options.config));
         this.registry.register(path.resolve(__dirname, 'middleware'));
 
+        // special case for static
         staticPath = this.registry.getConfig('middleware.static');
         if (staticPath) {
             staticPath = path.resolve(process.cwd(), staticPath);
         }
+
         this.registry.register({
             'middleware.router'      : function () {return that.app.router; },
             // make static root understand relative path
@@ -49,6 +51,7 @@ Rig.prototype.register = function (name, resource) {
 
 Rig.prototype.map = function () {
     'use strict';
+    console.log('[Rig] Mapping routes with registered:', JSON.stringify(Object.keys(this.registry.get())));
     this.router.map(this.app);
 };
 
