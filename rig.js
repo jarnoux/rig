@@ -13,7 +13,8 @@ var path     = require('path'),
         this.registry.register(path.resolve(__dirname, 'middleware'));
         this.registry.register({
             'middleware.router'      : function () {return that.app.router; },
-            'middleware.static'      : express.static.bind(null, __dirname + '/static'),
+            // make static root understand relative path
+            'middleware.static'      : express.static.bind(null, path.resolve(process.cwd(), this.registry.getConfig('middleware.static'))),
             'middleware.logger'      : express.logger,
             'middleware.query'       : express.query,
             'middleware.bodyParser'  : express.bodyParser,
@@ -21,7 +22,7 @@ var path     = require('path'),
             'middleware.session'     : express.session,
             'middleware.csrf'        : express.csrf,
             'middleware.errorHandler': express.errorHandler,
-            'middleware.registry'    : registry.middleware.bind(registry)
+            'middleware.registry'    : this.registry.middleware.bind(this.registry)
         });
 
         this.router = new Router({
@@ -29,7 +30,7 @@ var path     = require('path'),
             routes  : options.routes
         });
 
-        this.app.engine('.html', registry.get('middleware.hb-adapter'));
+        this.app.engine('.html', this.registry.get('middleware.hb-adapter'));
     };
 
 Rig.prototype.register = function (name, resource) {
