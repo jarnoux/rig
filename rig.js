@@ -16,7 +16,7 @@ var path     = require('path'),
         this.registry = new Registry(new Config(options.config));
         this.registry.register(path.resolve(__dirname, 'middleware'));
 
-        // special case for static
+        // special case for static relative path
         staticPath = this.registry.getConfig('middleware.static');
         if (staticPath) {
             staticPath = path.resolve(process.cwd(), staticPath);
@@ -24,7 +24,6 @@ var path     = require('path'),
 
         this.registry.register({
             'middleware.router'      : function () {return that.app.router; },
-            // make static root understand relative path
             'middleware.static'      : express.static.bind(null, staticPath),
             'middleware.logger'      : express.logger,
             'middleware.query'       : express.query,
@@ -32,8 +31,7 @@ var path     = require('path'),
             'middleware.cookieParser': express.cookieParser,
             'middleware.session'     : express.session,
             'middleware.csrf'        : express.csrf,
-            'middleware.errorHandler': express.errorHandler,
-            'middleware.registry'    : this.registry.middleware.bind(this.registry)
+            'middleware.errorHandler': express.errorHandler
         });
 
         this.router = new Router({
@@ -51,7 +49,9 @@ Rig.prototype.register = function (name, resource) {
 
 Rig.prototype.map = function () {
     'use strict';
-    console.log('[Rig] Mapping routes with registered:', JSON.stringify(Object.keys(this.registry.get())));
+    console.log('[Rig] Mapping routes with loaded:');
+    console.log(Object.keys(this.registry.get()));
+    this.app.use(this.registry.middleware());
     this.router.map(this.app);
 };
 

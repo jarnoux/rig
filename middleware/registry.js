@@ -66,35 +66,23 @@ Registry.prototype._registerASingleResource = function (name, resource) {
         try {
             configuredResource = this.__config__.ure(resource, name);
         } catch (e) {
-            if (e instanceof this.__config__.ConfigurationError) {
-                // it's not listed in the config, skip it
-                return;
-            }
-            // else it's probably a constructor trying to set an undefined "this"
+            // if (e instanceof this.__config__.ConfigurationError) {
+                // not listed in the config
+            // }
+            // else it's probably a constructor trying to set an undefined "this", skip
+            // console.log('skipping:', name);
+            return;
         }
     }
-    // here we have either resource is an object and configuredResource is undefined
-    // or resource resource is a function and configuredResource is anything or undefined
-    // so then if configuredResource is undefined, try to call resource as a constructor instead
-    if (typeof resource === 'function' && !configuredResource) {
-        this.__resourceStore__[name] =  new resource(this.__config__.get(name));
-    } else {
-        // else either configuredResource is something and we want it, or we want resource
-        resource = configuredResource || resource;
-        // if resource is an object, register each of its function member recursively
-        if (typeof resource === 'object') {
-            for (nextKey in resource) {
-                nestedResource = resource[nextKey];
-                // if the member is a function, bind it's context to its parent object
-                if (typeof nestedResource === 'function') {
-                    nestedResource = nestedResource.bind(resource);
-                }
-
-                this._registerASingleResource(name + '.' + nextKey, nestedResource);
-            }
-        } else {
-            this.__resourceStore__[name] = resource;
+    // here either configuredResource is something and we want it, or we want resource
+    resource = configuredResource || resource;
+    // if resource is an object litteral, register each of its members
+    if (resource.constructor === Object) {
+        for (nextKey in resource) {
+            this._registerASingleResource(name + '.' + nextKey, resource[nextKey]);
         }
+    } else {
+        this.__resourceStore__[name] = resource;
     }
 };
 
