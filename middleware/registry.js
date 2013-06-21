@@ -3,8 +3,9 @@
  *  A registry that configures resources and uniformizes retrieval.
  */
 
-var fs = require('fs'),
-    path = require('path'),
+var fs       = require('fs'),
+    path     = require('path'),
+    cwd      = process.cwd(),
     Registry = function (config) {
         'use strict';
         this.__config__ = config;
@@ -21,11 +22,15 @@ Registry.prototype.register = function (name, resource) {
     if (!resource) {
         switch (typeof name) {
         case 'object':
-            for (nextName in name) {
-                this.register(nextName, name[nextName]);
+            // only go down object litterals
+            if (name.constructor === Object) {
+                for (nextName in name) {
+                    this.register(nextName, name[nextName]);
+                }
             }
             break;
         case 'string':
+            name = path.resolve(cwd, name);
             return fs.readdirSync(name).forEach(function (file) {
                 registry._registerASingleResource(path.basename(name) + '.' + file, path.join(name, file));
             });

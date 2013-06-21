@@ -47,7 +47,7 @@ Rig.prototype.register = function (name, resource) {
     this.registry.register(name, resource);
 };
 
-Rig.prototype.map = function () {
+Rig.prototype.route = function () {
     'use strict';
     console.log('[Rig] Mapping routes with registered resources:');
     console.log(Object.keys(this.registry.get()));
