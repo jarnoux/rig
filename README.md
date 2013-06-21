@@ -6,26 +6,32 @@ A barepipe platform for node webapps. Rig is a set of middlewares and libraries 
 Example
 -------
 ```javascript
+/** server.js */
 /*jslint nomen: true*/
 
-var path = require('path'),
-    Rig  = require('rig'),
-    rig  = new Rig({
+var Rig = require('rig'),
+    rig = new Rig({
         config: 'config.json',
         routes: 'routes.json'
     });
 
-rig.register(path.resolve(__dirname, 'controllers'));
-rig.register(path.resolve(__dirname, 'middleware'));
-rig.register(path.resolve(__dirname, 'models'));
+rig.register('/middleware');
+rig.register('/controllers');
+rig.register('models.myModel', function (config) {
+    var MyModel = function (options) {
+        this._options = options
+    };
+    return new MyModel(config);
+});
 
 rig.map();
 
-rig.app.listen(3030);
-console.log('app listening on port', 3030);
+rig.app.listen(3000);
+console.log('app listening on port', 3000);
+
 ```
 
-That's all there is to a webapp. All the logic happens in the controllers, models and [Express](http://expressjs.com/) middleware (the resources).  
+That's all there is to start an app. All the logic happens in the controllers, models and [Express](http://expressjs.com/) middlewares (the resources).  
 Configuring these resources is dead easy and happens in ```config.json```.  
 How to pipe (route) all these resources is barely harder and happens in ```routes.json```.
 
@@ -34,8 +40,8 @@ Resources
 As an simple approach, a resource can be an object or a function returned by calling a configurer function. For example an [Express](http://expressjs.com/) middleware:
 ```javascript
 /** helloWorld.js */
-module.exports = function helloWorldConfigurer(config) {
-  return function helloWorld(req, res, next) {
+module.exports = function helloMiddlewareConfigurer(config) {
+  return function helloMiddleware(req, res, next) {
     console.log('Hello World!!');
     next();
   };
@@ -66,7 +72,8 @@ function (err, result)
 When it is done, the controller passes its error and/or result to the view with ```done```. Easy!  
   
 All the above configurers will be called by Rig with the appropriate configuration object.
-Notice how the [closure](http://en.wikipedia.org/wiki/Closure_(computer_science) in the middleware and controller allows them to access the ```config``` object even after the ```return``` statement has been executed.
+Notice how the [closure](http://en.wikipedia.org/wiki/Closure_(computer_science) in the middleware
+and controller allows them to access the ```config``` object even after the ```return``` statement has been executed.
 
 Resource Configuration
 ----------------------
@@ -85,7 +92,30 @@ That config file will gather all the configurations keyed by resource name. Exam
 Notice how the config of our controller is enclosed in another section. This is our way or mirroring the file system.
 In this case the object litteral ```{ "foo": "bar" }``` will be passed by Rig to the configurer function
 exported by the file or the node package ```middlewares/uselessController[.js]```.
-You can then group configurations in the config file just like you'd group files on the file system: middleware, lib, modules, models, etc...
+You can then group configurations in the config file just like you'd group files on the file system: middleware, lib, modules, models, etc.
+
+Resource Registration
+---------------------
+Once you have specified the configuration of your resource, you can store it in the Rig registry by calling ```Rig.register```.
+In it's basic form, this function takes two arguments: a ```String name``` and a  ```Function configurer```. 
+The ```configurer``` will be called with the configuration object at the path ```name``` in ```config.json```.
+In the following example, the ```new MyModel``` get configured and registered with the configuration ```{ "foo": "bar" }```.
+```javascript
+rig.register('models.myModel', function (config) {
+    var MyModel = function (options) {
+        this._options = options
+    };
+    return new MyModel(config);
+});
+```
+```yaml
+# config.json
+{
+    "models": {
+        "myModel": { "foo": "bar" }
+    }
+}
+```
 
 Resource Retrieval
 ------------------
