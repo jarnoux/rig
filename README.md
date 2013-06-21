@@ -24,7 +24,7 @@ rig.register('models.myModel', function (config) {
     return new MyModel(config);
 });
 
-rig.map();
+rig.route();
 
 rig.app.listen(3000);
 console.log('app listening on port', 3000);
@@ -98,7 +98,7 @@ Resource Registration
 ---------------------
 Once you have specified the configuration of your resource, you can store it in the Rig registry by calling ```Rig.register```.
 In it's basic form, this function takes two arguments: a ```String name``` and a  ```Function configurer```. 
-The ```configurer``` will be called with the configuration object at the path ```name``` in ```config.json```.
+The ```configurer``` will be called with the configuration object at the path ```name``` in ```config.json```.  
 In the following example, the ```new MyModel``` get configured and registered with the configuration ```{ "foo": "bar" }```.
 ```javascript
 rig.register('models.myModel', function (config) {
@@ -119,7 +119,7 @@ rig.register('models.myModel', function (config) {
 
 Resource Retrieval
 ------------------
-Resource retrieval is easy with Rig: a ```registry``` object is appended on every request argument of your middlewares.  
+Resource retrieval is easy with Rig: a ```registry``` object is appended on every request argument of your middlewares and controllers.  
 Then once you have configured and registered your resources, you can access resources like so:
 ```javascript
 /** barelyUsefulMiddleware.js */
@@ -130,3 +130,7 @@ module.exports = function (config) {
 }
 ```
 
+Routing
+-------
+Rig uses these same registry functionalities to map middlewares to routes. If you are unfamiliar with the Express way of
+route mapping, I suggest you have a look at [their documentation](http://expressjs.com/api.html#app.use)
