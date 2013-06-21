@@ -22,7 +22,7 @@ rig.register(path.resolve(__dirname, 'models'));
 rig.map();
 
 rig.app.listen(3030);
-console.log('back end app listening on port', 3030);
+console.log('app listening on port', 3030);
 ```
 
 That's all there is to a webapp. All the logic happens in the controllers, models and [Express](http://expressjs.com/) middleware (the resources).  
