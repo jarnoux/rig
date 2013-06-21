@@ -8,7 +8,8 @@ var path     = require('path'),
     Rig = function (options) {
         'use strict';
         var that = this,
-            staticPath;
+            staticPath,
+            templateEngine;
 
         this.app = express();
 
@@ -39,7 +40,10 @@ var path     = require('path'),
             routes  : options.routes
         });
 
-        this.app.engine('.html', this.registry.get('middleware.hb-adapter'));
+        templateEngine = this.registry.get(options.templateEngine || 'middleware.hb-adapter');
+        if (templateEngine) {
+            this.app.engine('.html', templateEngine);
+        }
     };
 
 Rig.prototype.register = function (name, resource) {
