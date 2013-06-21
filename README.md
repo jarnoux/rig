@@ -40,8 +40,8 @@ Resources
 As an simple approach, a resource can be an object or a function returned by calling a configurer function. For example an [Express](http://expressjs.com/) middleware:
 ```javascript
 /** helloWorld.js */
-module.exports = function helloWorldConfigurer(config) {
-  return function helloWorld(req, res, next) {
+module.exports = function helloMiddlewareConfigurer(config) {
+  return function helloMiddleware(req, res, next) {
     console.log('Hello World!!');
     next();
   };
