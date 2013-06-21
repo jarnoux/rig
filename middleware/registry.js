@@ -9,8 +9,6 @@ var fs = require('fs'),
         'use strict';
         this.__config__ = config;
         this.__resourceStore__ = {};
-
-        this.register('middleware.registry', this.middleware.bind(this));
     };
 
 Registry.prototype.register = function (name, resource) {

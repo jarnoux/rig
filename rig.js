@@ -49,7 +49,7 @@ Rig.prototype.register = function (name, resource) {
 
 Rig.prototype.map = function () {
     'use strict';
-    console.log('[Rig] Mapping routes with loaded:');
+    console.log('[Rig] Mapping routes with registered resources:');
     console.log(Object.keys(this.registry.get()));
     this.app.use(this.registry.middleware());
     this.router.map(this.app);
