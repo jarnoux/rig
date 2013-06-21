@@ -130,3 +130,7 @@ module.exports = function (config) {
 }
 ```
 
+Routing
+-------
+Rig uses these same registry functionalities to map middlewares to routes. If you are unfamiliar with the Express way of
+route mapping, I suggest you have a look at [their documentation](http://expressjs.com/api.html#app.use)
