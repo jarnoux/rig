@@ -5,6 +5,12 @@ var path     = require('path'),
     Router   = require('./lib/router'),
     Registry = require('./middleware/registry'),
     express  = require('express'),
+    /**
+     * @constructor
+     * @param  {Object} options
+     * @param {String} options.config the path of the json file containing the configurations
+     * @param {String} options.routes the path of the json file containing the routing configs
+     */
     Rig = function (options) {
         'use strict';
         var that = this,
@@ -46,11 +52,19 @@ var path     = require('path'),
         }
     };
 
-Rig.prototype.register = function (name, resource) {
+/**
+ * Configures and stores a resource into the registry
+ * @param  {String} name the reference under which to register the resource. Will be used to lookup for configurations
+ * @param  {Function} configurable a function that takes a configuration object and returns the resource to be registered
+ */
+Rig.prototype.register = function (name, configurable) {
     'use strict';
-    this.registry.register(name, resource);
+    this.registry.register(name, configurable);
 };
 
+/**
+ * Configures the app to route specific requests to specific middlewares according to the route config file
+ */
 Rig.prototype.route = function () {
     'use strict';
     console.log('[Rig] Mapping routes with registered resources:');

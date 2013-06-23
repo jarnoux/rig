@@ -6,9 +6,7 @@ module.exports = function (options) {
         var key;
         req.context = {};
         // start by taking all the context configs
-        for (key in options) {
-            req.context[key] = options[key];
-        }
+        req.context = options;
         next();
     };
 };
