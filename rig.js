@@ -73,4 +73,9 @@ Rig.prototype.route = function () {
     this.router.map(this.app);
 };
 
+Rig.prototype.listen = function () {
+    'use strict';
+    this.app.listen.apply(this.app, arguments);
+};
+
 module.exports = Rig;
