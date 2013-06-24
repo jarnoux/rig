@@ -4,6 +4,7 @@ var path     = require('path'),
     Config   = require('./lib/config'),
     Router   = require('./lib/router'),
     Registry = require('./middleware/registry'),
+    HBAdapter = require('./lib/hb-adapter'),
     express  = require('express'),
     /**
      * @constructor
@@ -29,6 +30,8 @@ var path     = require('path'),
             staticPath = path.resolve(process.cwd(), staticPath);
         }
 
+        // special case for hb-adapter
+        this.registry.register('lib.hb-adapter', HBAdapter);
         this.registry.register({
             'middleware.router'      : function () {return that.app.router; },
             'middleware.static'      : express.static.bind(null, staticPath),
@@ -46,12 +49,16 @@ var path     = require('path'),
             routes  : options.routes
         });
 
-        templateEngine = this.registry.get(options.templateEngine || 'middleware.hb-adapter');
+        templateEngine = this.registry.get(options.templateEngine || 'lib.hb-adapter');
         if (templateEngine) {
             this.app.engine('.html', templateEngine);
         }
     };
 
+Rig.prototype.engine = function () {
+    'use strict';
+    this.app.engine.apply(this.app, arguments);
+};
 /**
  * Configures and stores a resource into the registry
  * @param  {String} name the reference under which to register the resource. Will be used to lookup for configurations

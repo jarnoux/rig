@@ -29,13 +29,13 @@ module.exports = function (options) {
             nextSanitization    = req.sanitize(nextParam);
             nextSanitizeMethods = routeValidation[nextParam].sanitize;
             for (nextSanitizeMethod in nextSanitizeMethods) {
-                nextSanitization[nextSanitizeMethod].call(nextSanitization, nextSanitizeMethods[nextSanitizeMethod]);
+                nextSanitization[nextSanitizeMethod].apply(nextSanitization, nextSanitizeMethods[nextSanitizeMethod]);
             }
 
             nextAssertion       = req.assert(nextParam, routeValidation[nextParam].errorMessage);
             nextAssertMethods   = routeValidation[nextParam].assert;
             for (nextAssertMethod in nextAssertMethods) {
-                nextAssertion[nextAssertMethod].call(nextAssertion, nextAssertMethods[nextAssertMethod]);
+                nextAssertion[nextAssertMethod].apply(nextAssertion, nextAssertMethods[nextAssertMethod]);
             }
         }
 

@@ -6,7 +6,7 @@ module.exports = function (options) {
             status = options.statuses[type] || 500;
 
         res.writeHead(status);
-        res.renderJSON({
+        req.renderJSON({
             type: type,
             status: status,
             message: err.message
