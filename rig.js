@@ -8,7 +8,7 @@ var path     = require('path'),
     express  = require('express'),
     /**
      * @constructor
-     * @param  {Object} options
+     * @param {Object} options
      * @param {String} options.config the path of the json file containing the configurations
      * @param {String} options.routes the path of the json file containing the routing configs
      */

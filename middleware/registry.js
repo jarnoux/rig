@@ -6,20 +6,30 @@
 var fs       = require('fs'),
     path     = require('path'),
     cwd      = process.cwd(),
+    /**
+     * @constructor
+     * @param {Config} config the config containing the settings necessary to configure resources
+     */
     Registry = function (config) {
         'use strict';
         this.__config__ = config;
         this.__resourceStore__ = {};
     };
 
-Registry.prototype.register = function (name, resource) {
+/**
+ * Configure and store a resource
+ * @param  {String} name
+ * @param  {Function} configurable
+ * @throws {Error} If {@code typeof name} is not {@code 'object'} not {@code 'string'}
+ */
+Registry.prototype.register = function (name, configurable) {
     'use strict';
     var registry = this,
         nextName;
 
     // if only one argument and it's an object, load in batch
     // if it's a string, assume path and load each in the directory
-    if (!resource) {
+    if (!configurable) {
         switch (typeof name) {
         case 'object':
             // only go down object litterals
@@ -38,36 +48,47 @@ Registry.prototype.register = function (name, resource) {
             throw new Error('expected an object or a string, but got ' + name + ' instead.');
         }
     } else {
-        return this._registerASingleResource(name, resource);
+        return this._registerASingleResource(name, configurable);
     }
 };
 
-Registry.prototype.get = function (name) {
+/**
+ * Retrieve a configured resource
+ * @param  {String} path the 'dot-separated' path where to find the resource in the json-tree config
+ * @return {Any} the configured resource
+ */
+Registry.prototype.get = function (path) {
     'use strict';
-    if (!name) {
+    if (!path) {
         return this.__resourceStore__;
     }
-    return this.__resourceStore__[name];
+    return this.__resourceStore__[path];
 };
 
-Registry.prototype._registerASingleResource = function (name, resource) {
+/**
+ * @private
+ * @param  {String} name
+ * @param  {Function} configurable
+ */
+Registry.prototype._registerASingleResource = function (name, configurable) {
     'use strict';
     var configuredResource,
         nextKey,
-        nestedResource;
+        nestedResource,
+        resource;
 
     // we try to load named modules
-    if (typeof resource === 'string') {
+    if (typeof configurable === 'string') {
         // if it's a file, remove the extention
-        if (fs.statSync(resource).isFile()) {
+        if (fs.statSync(configurable).isFile()) {
             name = name.substring(0, name.lastIndexOf('.'));
         }
-        resource = require(resource);
+        configurable = require(configurable);
     }
-    // NOW if the resource is configurable, try to do it
-    if (typeof resource === 'function') {
+    // NOW if the configurable is configurable, try to do it
+    if (typeof configurable === 'function') {
         try {
-            configuredResource = this.__config__.ure(resource, name);
+            configuredResource = this.__config__.ure(configurable, name);
         } catch (e) {
             // if (e instanceof this.__config__.ConfigurationError) {
                 // not listed in the config
@@ -77,8 +98,8 @@ Registry.prototype._registerASingleResource = function (name, resource) {
             return;
         }
     }
-    // here either configuredResource is something and we want it, or we want resource
-    resource = configuredResource || resource;
+    // here either configuredResource is something and we want it, or we want configurable
+    resource = configuredResource || configurable;
     // if resource is an object litteral, register each of its members
     if (resource.constructor === Object) {
         for (nextKey in resource) {
@@ -89,10 +110,20 @@ Registry.prototype._registerASingleResource = function (name, resource) {
     }
 };
 
-Registry.prototype.getConfig = function (name) {
+/**
+ * retrieve a configuration object
+ * @param  {String} path the 'dot-separated' path indicating where to find the configuration
+ * @return {Object} the configuration
+ */
+Registry.prototype.getConfig = function (path) {
     'use strict';
-    return this.__config__.get(name);
+    return this.__config__.get(path);
 };
+
+/**
+ * A configurable for a registry middleware appending this instance to the {@code req} object
+ * @return {Function} the registry middleware
+ */
 Registry.prototype.middleware = function registry() {
     'use strict';
     var self = this;

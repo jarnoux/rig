@@ -1,6 +1,11 @@
 /*jslint forin: true */
 
 var e_validator = require('express-validator'),
+    /**
+     * @constructor
+     * @description An error thrown by user input validation
+     * @param  {Object} errors an object containing validation errors
+     */
     ValidationError = function (errors) {
         'use strict';
         this.name    = 'ValidationError';
