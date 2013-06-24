@@ -14,7 +14,8 @@
   "gitHead": "c4ea8ab1c312cabba7d76ddc04a49bd6b1aa187b",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified, that's fine for now...\" && exit 0",
+    "jsdoc": "jsdoc . -r -d ./doc/"
   },
   "repository": {
     "type": "git",

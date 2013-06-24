@@ -1,5 +1,5 @@
 node_js:
   - "0.10"
 
-before_install: "npm doc"
-after_install: "git add ./doc && git commit -m \"[ci skip] JSDoc commit\" && git push"
+before_install: "npm runscript jsdoc"
+after_success: "git add ./doc && git commit -m \"[ci skip] JSDoc commit\" && git push"
