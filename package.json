@@ -12,7 +12,9 @@
   },
   "readmeFilename": "README.md",
   "gitHead": "c4ea8ab1c312cabba7d76ddc04a49bd6b1aa187b",
-  "devDependencies": {},
+  "devDependencies": {
+    "jsdoc": "3.2.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified, that's fine for now...\" && exit 0",
     "jsdoc": "jsdoc . -r -d ./doc/"
