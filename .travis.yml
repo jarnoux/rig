@@ -1,16 +1,15 @@
 --- 
 language: node_js
+node_js: 
+- "0.10"
 env: 
   matrix: 
     secure: |-
       pHkR5mcelkVPvpsGVd1dBvhdowR9WQNYvX43CxgJ6NfTlLThrIZVw/73IKSe
       IddeUWCqeVMfVUbQdQq9TD9RbkxN/dZfTZ97IaOGLbWKvfK4QKcX7X79ehnW
       ycQTiMuPfDiZCTjxRPLpvaQfdYPVyQglrrKLm/XSZ9wEcL2TK38=
-node_js: 
-- "0.10"
 after_success: 
 - git checkout master
-- git rm -r doc/
 - find . -type f \( ! -wholename '**/node_modules**' \) -print | xargs jsdoc -d ./doc
 - git show -s --format='%ae' $TRAVIS_COMMIT | xargs git config user.email
 - git show -s --format='%an' $TRAVIS_COMMIT | xargs git config user.name
