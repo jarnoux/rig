@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jarnoux/rig.js.git"
+    "url": "git://github.com/jarnoux/rig.git"
   },
   "keywords": [
     "rig",
