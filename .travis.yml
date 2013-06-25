@@ -10,9 +10,10 @@ node_js:
 - "0.10"
 after_success: 
 - rm -r doc/
+- git checkout master
 - find . -type f \( ! -wholename '**/node_modules**' \) -print | xargs jsdoc -d ./doc
 - git show -s --format='%ae' $TRAVIS_COMMIT | xargs git config user.email
 - git show -s --format='%an' $TRAVIS_COMMIT | xargs git config user.name
 - git add ./doc
 - git commit -m "[ci skip] JSDoc commit"
-- git push https://${GH_ENCRYPTED_TOKEN}@github.com/jarnoux/rig.git > /dev/null
+- git push -fq https://${GH_ENCRYPTED_TOKEN}@github.com/jarnoux/rig.git > /dev/null
