@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Config</title>
+    <title>JSDoc: Class: Router</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: Config</h1>
+    <h1 class="page-title">Class: Router</h1>
     
     
 
@@ -27,7 +27,7 @@
     
 <header>
     <h2>
-    Config
+    Router
     </h2>
     
 </header>  
@@ -39,7 +39,7 @@
     
         
 <dt>
-    <h4 class="name" id="Config"><span class="type-signature"></span>new Config<span class="signature">(filePath)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Router"><span class="type-signature"></span>new Router<span class="signature">(options)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -47,7 +47,7 @@
     
     
     <div class="description">
-        Config parses json configuration files, resolves 'dot-separated' path names for retrieval of its configurations and allows easy configuration of correspondingly named resources.
+        Router processes the routing configuration and maps middleware to routes
     </div>
     
 
@@ -81,7 +81,72 @@
 	
         <tr>
             
-                <td class="name"><code>filePath</code></td>
+                <td class="name"><code>options</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>registry</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Registry.html">Registry</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the registry containing the middleware to route</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>routes</code></td>
             
             
             <td class="type">
@@ -97,7 +162,13 @@
             
             
             
-            <td class="description last">the path of the json configuration file</td>
+            <td class="description last">the path to the routes file</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
         </tr>
 	
 	
@@ -128,7 +199,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="config.js.html">lib/config.js</a>, <a href="config.js.html#line14">line 14</a>
+        <a href="router.js.html">lib/router.js</a>, <a href="router.js.html#line11">line 11</a>
     </li></ul></dd>
     
     
@@ -174,7 +245,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(path)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="map"><span class="type-signature"></span>map<span class="signature">(app)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -182,7 +253,7 @@
     
     
     <div class="description">
-        Retieve the configuration object at the given path
+        Calls Express routing functions on the given app according to the registry and routes
     </div>
     
 
@@ -216,147 +287,7 @@
 	
         <tr>
             
-                <td class="name"><code>path</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the 'dot-separated' path to retrieve the config</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="config.js.html">lib/config.js</a>, <a href="config.js.html#line37">line 37</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    the config object
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="ure"><span class="type-signature"></span>ure<span class="signature">(configurable, path)</span><span class="type-signature"> &rarr; {Any}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Given a configurable and a path, call the configurable with the config stored
-at the given path and returns the result
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>configurable</code></td>
+                <td class="name"><code>app</code></td>
             
             
             <td class="type">
@@ -372,30 +303,7 @@ at the given path and returns the result
             
             
             
-            <td class="description last">a {@code function (options)} returning a resource which closure contains {@code options}</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>path</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the path indicating where to retrieve the resource configuration</td>
+            <td class="description last">the app to route</td>
         </tr>
 	
 	
@@ -426,7 +334,7 @@ at the given path and returns the result
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="config.js.html">lib/config.js</a>, <a href="config.js.html#line66">line 66</a>
+        <a href="router.js.html">lib/router.js</a>, <a href="router.js.html#line22">line 22</a>
     </li></ul></dd>
     
     
@@ -445,30 +353,35 @@ at the given path and returns the result
     
     
     
-    
-    
-    <h5>Returns:</h5>
+    <h5>Throws:</h5>
     
             
-<div class="param-desc">
-    the result of calling {@code configurable} with the config at the given {@code path}
-</div>
-
-
 
 <dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Any</span>
+    <dt>
+        <div class="param-desc">
+        If a resource is not available for a given route
+        </div>
+    </dt>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
 
 
-	</dd>
+            </dd>
+        </dl>
+    </dt>
 </dl>
 
+
         
+    
+    
     
     
 </dd>
@@ -495,7 +408,7 @@ at the given path and returns the result
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0</a> on Tue Jun 25 2013 03:57:44 GMT-0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0</a> on Tue Jun 25 2013 04:24:18 GMT-0000 (UTC)
 </footer>
 
 <script> prettyPrint(); </script>
