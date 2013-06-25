@@ -1,3 +1,4 @@
 doc
 .travis.yml
 .gitignore
+.npmignore
