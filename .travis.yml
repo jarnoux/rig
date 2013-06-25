@@ -15,4 +15,4 @@ after_success:
 - git show -s --format='%an' $TRAVIS_COMMIT | xargs git config user.name
 - git add ./doc
 - git commit -m "[ci skip] JSDoc commit"
-- git push https://${GH_ENCRYPTED_TOKEN}@github.com/jarnoux/rig.git > dev/null
+- git push https://${GH_ENCRYPTED_TOKEN}@github.com/jarnoux/rig.git > /dev/null
