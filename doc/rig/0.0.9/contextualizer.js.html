@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Index</title>
+    <title>JSDoc: Source: middleware/contextualizer.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,36 +17,36 @@
 
 <div id="main">
     
-    <h1 class="page-title">Index</h1>
+    <h1 class="page-title">Source: middleware/contextualizer.js</h1>
     
     
 
 
     
-
-
-    <h3>rig 0.0.9</h3>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><h1>rig.js</h1>
+        <article>
+            <pre class="prettyprint source"><code>/*jslint forin: true */
 
-<p>A barepipe platform for node webapps. Rig is a set of middlewares and libraries for webapps based on Express. Considering that performance and quality are very much a matter of clarity, emphasis is made on conciseness of the code and good, reusable design that makes (some) sense.</p></article>
+module.exports = function (options) {
+    'use strict';
+    /**
+     * @name context
+     * @type {Object}
+     * @fieldOf req
+     * @description The running context of the request
+     * 
+     */
+    return function contextualizer(req, res, next) {
+        var key;
+        req.context = {};
+        // start by taking all the context configs
+        req.context = options;
+        next();
+    };
+};
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

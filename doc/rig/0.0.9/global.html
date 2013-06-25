@@ -89,16 +89,78 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="fs"><span class="type-signature"></span>fs<span class="type-signature"></span></h4>
+    <h4 class="name" id="context"><span class="type-signature"></span>context<span class="type-signature"> :Object</span></h4>
     
     
 </dt>
 <dd>
     
     <div class="description">
-        A configuration utility that allows easy synchronous and async access
- to configurations stored in a json file and can call/configure a 
- function with those configurations;
+        The running context of the request
+    </div>
+    
+    
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="contextualizer.js.html">middleware/contextualizer.js</a>, <a href="contextualizer.js.html#line5">line 5</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="error"><span class="type-signature"></span>error<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A logging utility
     </div>
     
     
@@ -127,7 +189,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="config.js.html">lib/config.js</a>, <a href="config.js.html#line8">line 8</a>
+        <a href="logwriter.js.html">middleware/logwriter.js</a>, <a href="logwriter.js.html#line52">line 52</a>
     </li></ul></dd>
     
     
@@ -196,9 +258,286 @@
     
 </dd>
 
+        
+            
+<dt>
+    <h4 class="name" id="fs"><span class="type-signature"></span>fs<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A configuration utility that allows easy synchronous and async access
+ to configurations stored in a json file and can call/configure a 
+ function with those configurations;
+    </div>
+    
+    
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="config.js.html">lib/config.js</a>, <a href="config.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="renderJSON"><span class="type-signature"></span>renderJSON<span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        A glorified JSON.stringify
+    </div>
+    
+    
+    
+
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="jsonrenderer.js.html">middleware/jsonrenderer.js</a>, <a href="jsonrenderer.js.html#line6">line 6</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+</dd>
+
         </dl>
     
     
+    
+        <h3 class="subsection-title">Methods</h3>
+        
+        <dl>
+            
+<dt>
+    <h4 class="name" id="hb_adapter"><span class="type-signature"></span>hb_adapter<span class="signature">(path, templateData, callback)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        A caching, Express.js template engine glue for handlebars.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the path of the template file to render</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>templateData</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the data to inject into the template</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">a function with signature {@code function (error, result)} with {@code result} being the renedered result.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="hb-adapter.js.html">lib/hb-adapter.js</a>, <a href="hb-adapter.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        </dl>
     
     
     
@@ -214,13 +553,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Config.html">Config</a></li><li><a href="ConfigurationError.html">ConfigurationError</a></li><li><a href="Registry.html">Registry</a></li><li><a href="Rig.html">Rig</a></li><li><a href="Router.html">Router</a></li><li><a href="ValidationError.html">ValidationError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fs">fs</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Config.html">Config</a></li><li><a href="ConfigurationError.html">ConfigurationError</a></li><li><a href="Registry.html">Registry</a></li><li><a href="Rig.html">Rig</a></li><li><a href="Router.html">Router</a></li><li><a href="ValidationError.html">ValidationError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#context">context</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#fs">fs</a></li><li><a href="global.html#hb_adapter">hb_adapter</a></li><li><a href="global.html#renderJSON">renderJSON</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0</a> on Tue Jun 25 2013 15:34:28 GMT-0000 (UTC)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0</a> on Tue Jun 25 2013 16:00:58 GMT-0000 (UTC)
 </footer>
 
 <script> prettyPrint(); </script>
