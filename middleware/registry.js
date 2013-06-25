@@ -127,6 +127,12 @@ Registry.prototype.getConfig = function (path) {
 Registry.prototype.middleware = function registry() {
     'use strict';
     var self = this;
+    /**
+     * @name registry
+     * @type {Registry}
+     * @memberOf  req
+     * @description a utility that allows easy configuration, storage and retrieval of resources
+     */
     return function (req, res, next) {
         req.registry = self;
         next();

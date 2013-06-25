@@ -49,6 +49,24 @@ module.exports = function (options) {
                 write('error', '[Error]', message);
             }
         };
+    /**
+     * A logging utility
+     * @name logger
+     * @fieldOf req
+     * @name debug
+     * @methodOf logger
+     * @param {String} message the message to write with a 'debugger' level
+     * @name info
+     * @methodOf logger
+     * @param {String} message the message to write with an 'info' level
+     * @name warning
+     * @methodOf logger
+     * @param {String} message the message to write with a 'warning' level
+     * @name error
+     * @methodOf logger
+     * @param {String} message the message to write with an 'error' level
+     * 
+     */
     return function logwriter(req, res, next) {
         res.log = logger;
         next();

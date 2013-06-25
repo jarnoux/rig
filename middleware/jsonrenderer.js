@@ -5,6 +5,8 @@ module.exports = function (options) {
     return function (req, res, next) {
         /**
          * A glorified JSON.stringify
+         * @name renderJSON
+         * @methodOf req
          * @param  {Any}   json
          * @param  {Function} callback a {@code function (error, result)} called when rendering is finished
          */
