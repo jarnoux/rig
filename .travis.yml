@@ -1,11 +1,18 @@
-language: node_js
+--- 
+env: 
+  matrix: 
+    secure: |-
+      Q2dAQOfzZrHWF3N6no+4DjrnTuMbSSr8ClPhS8hMrPPC56nRxRfppA6MM/xs
+      jk0bD50MFzj6VKQpnT96j5alrFpPDgnf1BmSsH220mlwkzbL3XrmGzja7ClF
+      /tROFsXO1Are2wX48OHwo2Eb21S+4iDDEe2SUiAjpDfb0zuEulo=
 node_js: 
-  - "0.10"
+- "0.10"
+language: node_js
 after_success: 
-  - rm -r doc/
-  - find . -type f \( ! -wholename '**/node_modules**' \) -print | xargs jsdoc -d ./doc
-  - git show -s --format='%ae' $TRAVIS_COMMIT | xargs git config user.email
-  - git show -s --format='%an' $TRAVIS_COMMIT | xargs git config user.name
-  - git add ./doc
-  - git commit -m "[ci skip] JSDoc commit"
-  - git push https://${GH_TOKEN}@github.com/jarnoux/rig.git
+- rm -r doc/
+- find . -type f \( ! -wholename '**/node_modules**' \) -print | xargs jsdoc -d ./doc
+- git show -s --format='%ae' $TRAVIS_COMMIT | xargs git config user.email
+- git show -s --format='%an' $TRAVIS_COMMIT | xargs git config user.name
+- git add ./doc
+- git commit -m "[ci skip] JSDoc commit"
+- git push https://${GH_ENCRYPTED_TOKEN}@github.com/jarnoux/rig.git
