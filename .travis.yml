@@ -1,14 +1,6 @@
-{
-    language: "node_js",
-    node_js: [
-        "0.8",
-        "0.10"
-    ],
-    after_success: [
-        "rm -r doc/",
-        "find . -type f \( ! -wholename '**/node_modules**' \) -print | xargs jsdoc -d ./doc",
-        "git add ./doc",
-        "git commit -m '[ci skip] JSDoc commit'",
-        "git push"
-    ]
-}
+language: node_js
+node_js: 
+  - "0.8"
+  - "0.10"
+after_success: 
+  - rm -r doc/
