@@ -15,5 +15,5 @@ after_success:
 - git show -s --format='%ae' $TRAVIS_COMMIT | xargs git config user.email
 - git show -s --format='%an' $TRAVIS_COMMIT | xargs git config user.name
 - git add ./doc
-- git commit -m "[ci skip] JSDoc commit"
+- git commit -m "[ci skip] Travis build $TRAVIS_BUILD_NUMBER"
 - git push -fq https://${GH_ENCRYPTED_TOKEN}@github.com/jarnoux/rig.git > /dev/null
