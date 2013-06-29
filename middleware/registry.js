@@ -3,6 +3,7 @@
 var fs       = require('fs'),
     path     = require('path'),
     cwd      = process.cwd(),
+
     /**
      * @constructor
      * @param {Config} config the config containing the settings necessary to configure resources
@@ -17,7 +18,7 @@ var fs       = require('fs'),
  * Configure and store a resource
  * @param  {String} name
  * @param  {Function} configurable
- * @throws {Error} If {@code typeof name} is not {@code 'object'} not {@code 'string'}
+ * @throws {Error} If typeof name is not 'object' nor 'string'
  */
 Registry.prototype.register = function (name, configurable) {
     'use strict';
@@ -118,12 +119,13 @@ Registry.prototype.getConfig = function (path) {
 };
 
 /**
- * A configurable for a registry middleware appending this instance to the {@code req} object
+ * A configurable for a registry middleware appending this instance to the {@linkcode req} object
  * @return {Function} the registry middleware
  */
 Registry.prototype.middleware = function registry() {
     'use strict';
     var self = this;
+
     /**
      * @name registry
      * @type {Registry}

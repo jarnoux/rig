@@ -67,6 +67,20 @@ module.exports = function (options) {
             }
         };
 
+    /**
+     * @name req
+     * @type {Object}
+     * @global
+     * @namespace
+     * @description  the request object passed to every middleware and controller as a first argument
+     */
+    /**
+     * @name res
+     * @type {Object}
+     * @global
+     * @namespace
+     * @description the response object passed to every middleware and controller as a second argument
+     */
     return function dispatcher(req, res, next) {
         registry = registry || req.registry;
         config   = config   || registry.getConfig('middleware.dispatcher');

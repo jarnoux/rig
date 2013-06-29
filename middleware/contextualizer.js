@@ -2,12 +2,13 @@
 
 module.exports = function (options) {
     'use strict';
+
     /**
      * @name context
      * @type {Object}
      * @memberOf req
+     * @instance
      * @description The running context of the request
-     * 
      */
     return function contextualizer(req, res, next) {
         var key;

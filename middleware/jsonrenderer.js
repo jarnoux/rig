@@ -8,8 +8,8 @@ module.exports = function (options) {
          * @name renderJSON
          * @function
          * @memberOf req
-         * @param  {Any}   json
-         * @param  {Function} callback a {@code function (error, result)} called when rendering is finished
+         * @param {Any}   json
+         * @param {Function(Error, String)} callback called when rendering is finished
          */
         req.renderJSON = function (json, callback) {
             try {

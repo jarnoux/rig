@@ -6,6 +6,7 @@ var path     = require('path'),
     Registry = require('./middleware/registry'),
     HBAdapter = require('./lib/hb-adapter'),
     express  = require('express'),
+
     /**
      * @constructor
      * @param {Object} options
