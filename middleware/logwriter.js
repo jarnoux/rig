@@ -36,15 +36,39 @@ module.exports = function (options) {
             }
         },
         logger = {
+            /**
+             * @name debug
+             * @memberOf logger
+             * @function
+             * @param {String} message the message to write with a 'debug' level
+             */
             debug   : function (message) {
                 write('debug', '[Debug]', message);
             },
+            /**
+             * @name info
+             * @memberOf logger
+             * @function
+             * @param {String} message the message to write with a 'info' level
+             */
             info    : function (message) {
                 write('info', '[Info]', message);
             },
+            /**
+             * @name warning
+             * @memberOf logger
+             * @function
+             * @param {String} message the message to write with a 'warning' level
+             */
             warning : function (message) {
                 write('warning', '[Warning]', message);
             },
+            /**
+             * @name error
+             * @memberOf logger
+             * @function
+             * @param {String} message the message to write with a 'error' level
+             */
             error   : function (message) {
                 write('error', '[Error]', message);
             }
@@ -52,20 +76,8 @@ module.exports = function (options) {
     /**
      * A logging utility
      * @name logger
-     * @fieldOf req
-     * @name debug
-     * @methodOf logger
-     * @param {String} message the message to write with a 'debugger' level
-     * @name info
-     * @methodOf logger
-     * @param {String} message the message to write with an 'info' level
-     * @name warning
-     * @methodOf logger
-     * @param {String} message the message to write with a 'warning' level
-     * @name error
-     * @methodOf logger
-     * @param {String} message the message to write with an 'error' level
-     * 
+     * @type {Object}
+     * @memberOf req
      */
     return function logwriter(req, res, next) {
         res.log = logger;

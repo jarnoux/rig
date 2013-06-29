@@ -1,7 +1,4 @@
 /*jslint nomen: true, forin: true, stupid: true, newcap: true */
-/**
- *  A registry that configures resources and uniformizes retrieval.
- */
 
 var fs       = require('fs'),
     path     = require('path'),

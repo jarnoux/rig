@@ -5,7 +5,7 @@ module.exports = function (options) {
     /**
      * @name context
      * @type {Object}
-     * @fieldOf req
+     * @memberOf req
      * @description The running context of the request
      * 
      */

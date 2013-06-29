@@ -6,7 +6,8 @@ module.exports = function (options) {
         /**
          * A glorified JSON.stringify
          * @name renderJSON
-         * @methodOf req
+         * @function
+         * @memberOf req
          * @param  {Any}   json
          * @param  {Function} callback a {@code function (error, result)} called when rendering is finished
          */
