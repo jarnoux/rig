@@ -48,6 +48,13 @@ module.exports = function (options) {
         next(error && new ValidationError(error));
     };
 
+    /**
+     * @function
+     * @name  validator
+     * @param  {Request}   req  
+     * @param  {Reqponse}   res  
+     * @param  {Function} next
+     */
     return function validator(req, res, next) {
         e_validator(req, res, myValidator.bind(null, req, res, next));
     };
