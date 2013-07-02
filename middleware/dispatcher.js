@@ -20,10 +20,11 @@ module.exports = function (options) {
                     return dispatchPlan(expandedPlan, req, res, planDone);
                 }
 
-                controller = registry.get('controllers.' + plan);
-                if (!controller) {
-                    return planDone(new Error('No plan nor any registered controller for route: ' + req.route.path));
-                }
+                // if there is no controller, just render the static template with nothing
+                controller = registry.get('controllers.' + plan) ||
+                    function (req, res, done) {
+                        done();
+                    };
 
                 if (expandedPlan instanceof Object) {
                     for (key in expandedPlan) {
