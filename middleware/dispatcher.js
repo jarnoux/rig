@@ -1,6 +1,9 @@
 /*jslint forin: true, nomen: true */
 
-var async = require('async');
+var async = require('async'),
+    stupidController = function (req, res, done) {
+        done();
+    };
 
 module.exports = function (options) {
     'use strict';
@@ -14,17 +17,14 @@ module.exports = function (options) {
                 retentionPool = {};
 
             if (typeof plan === 'string') {
-                expandedPlan = config.plans[plan];
+                expandedPlan = config.details[plan];
 
                 if (expandedPlan instanceof Array) {
                     return dispatchPlan(expandedPlan, req, res, planDone);
                 }
 
                 // if there is no controller, just render the static template with nothing
-                controller = registry.get('controllers.' + plan) ||
-                    function (req, res, done) {
-                        done();
-                    };
+                controller = registry.get('controllers.' + plan) || stupidController;
 
                 if (expandedPlan instanceof Object) {
                     for (key in expandedPlan) {
@@ -83,13 +83,18 @@ module.exports = function (options) {
      * @description the response object passed to every middleware and controller as a second argument
      */
     return function dispatcher(req, res, next) {
+        var h,
+            reqPath = req.route.path;
         registry = registry || req.registry;
         config   = config   || registry.getConfig('middleware.dispatcher');
         // read the plan from the config given the matched route and method
-        req.plan = config.routes[req.route.path] &&
-            (config.routes[req.route.path][req.route.method] || config.routes[req.route.path].all);
+        req.plan = config.plans[reqPath] &&
+            (config.plans[reqPath][req.route.method] || config.plans[reqPath].all);
         if (!req.plan) {
-            return next(new Error('No plan for route ' + req.route.path));
+            return next(new Error('No plan for route ' + reqPath));
+        }
+        for (h in config.headers[reqPath]) {
+            res.setHeader(h, config.headers[reqPath][h]);
         }
         // initiate the recursive dispatch of the plan
         return dispatchPlan(req.plan, req, res, function done(err, result) {

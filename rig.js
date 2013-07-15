@@ -34,15 +34,29 @@ var path     = require('path'),
         // special case for hb-adapter
         this.registry.register('lib.hb-adapter', HBAdapter);
         this.registry.register({
-            'middleware.router'      : function () {return that.app.router; },
-            'middleware.static'      : express.static.bind(null, staticPath),
-            'middleware.logger'      : express.logger,
-            'middleware.query'       : express.query,
-            'middleware.bodyParser'  : express.bodyParser,
-            'middleware.cookieParser': express.cookieParser,
-            'middleware.session'     : express.session,
-            'middleware.csrf'        : express.csrf,
-            'middleware.errorHandler': express.errorHandler
+            'middleware.router'        : function () {return that.app.router; },
+            'middleware.static'        : express.static.bind(null, staticPath),
+            'middleware.logger'        : express.logger,
+            'middleware.query'         : express.query,
+            'middleware.bodyParser'    : express.bodyParser,
+            'middleware.cookieParser'  : express.cookieParser,
+            'middleware.session'       : express.session,
+            'middleware.csrf'          : express.csrf,
+            'middleware.errorHandler'  : express.errorHandler,
+            'middleware.compress'      : express.compress,
+            'middleware.basicAuth'     : express.basicAuth,
+            'middleware.json'          : express.json,
+            'middleware.urlencoded'    : express.urlencoded,
+            'middleware.multipart'     : express.multipart,
+            'middleware.timeout'       : express.timeout,
+            'middleware.cookieSession' : express.cookieSession,
+            'middleware.methodOverride': express.methodOverride,
+            'middleware.responseTime'  : express.responseTime,
+            'middleware.staticCache'   : express.staticCache,
+            'middleware.directory'     : express.directory,
+            'middleware.vhost'         : express.vhost,
+            'middleware.favicon'       : express.favicon,
+            'middleware.limit'         : express.limit
         });
 
         this.router = new Router({
