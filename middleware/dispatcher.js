@@ -24,7 +24,11 @@ module.exports = function (options) {
                 }
 
                 // if there is no controller, just render the static template with nothing
-                controller = registry.get('controllers.' + plan) || stupidController;
+                controller = registry.get('controllers.' + plan);
+                if (!controller) {
+                    controller = stupidController;
+                    console.warn('[Dispatcher] Cannot find resource controllers.' + plan + ', rendering corresponding view as static.');
+                }
 
                 if (expandedPlan instanceof Object) {
                     for (key in expandedPlan) {

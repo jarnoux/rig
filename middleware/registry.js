@@ -93,6 +93,9 @@ Registry.prototype._registerASingleResource = function (name, configurable) {
             // }
             // else it's probably a constructor trying to set an undefined "this", skip
             // console.log('skipping:', name);
+            if (!(e instanceof this.__config__.ConfigurationError)) {
+                console.warn('[registry] Resource ' + name + ' could not be configured, skipping: ' + e);
+            }
             return;
         }
     }
