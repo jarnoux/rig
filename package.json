@@ -8,7 +8,8 @@
     "async": "0.x.x",
     "handlebars": "1.x",
     "colors": "0.6.x",
-    "express-validator": "0.3.x"
+    "express-validator": "0.3.x",
+    "js-yaml": "2.1.x"
   },
   "readmeFilename": "README.md",
   "gitHead": "c4ea8ab1c312cabba7d76ddc04a49bd6b1aa187b",
