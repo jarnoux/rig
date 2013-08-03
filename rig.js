@@ -16,19 +16,21 @@ var path     = require('path'),
     Rig = function (options) {
         'use strict';
         var that = this,
+            cwd = process.cwd(),
             staticPath,
             templateEngine;
 
         this.app = express();
 
         // register all the middlewares
-        this.registry = new Registry(new Config(options.config));
+        debugger;
+        this.registry = new Registry(new Config(path.resolve(cwd, options.config)));
         this.registry.register(path.resolve(__dirname, 'middleware'));
 
         // special case for static relative path
         staticPath = this.registry.getConfig('middleware.static');
         if (staticPath) {
-            staticPath = path.resolve(process.cwd(), staticPath);
+            staticPath = path.resolve(cwd, staticPath);
         }
 
         // special case for hb-adapter

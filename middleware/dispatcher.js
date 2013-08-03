@@ -7,8 +7,7 @@ var async = require('async'),
 
 module.exports = function (options) {
     'use strict';
-    var config,
-        registry,
+    var registry,
         dispatchPlan = function (plan, req, res, planDone) {
             var controller,
                 key,
@@ -17,7 +16,7 @@ module.exports = function (options) {
                 retentionPool = {};
 
             if (typeof plan === 'string') {
-                expandedPlan = config.details[plan];
+                expandedPlan = options.details[plan];
 
                 if (expandedPlan instanceof Array) {
                     return dispatchPlan(expandedPlan, req, res, planDone);
@@ -26,6 +25,7 @@ module.exports = function (options) {
                 // if there is no controller, just render the static template with nothing
                 controller = registry.get('controllers.' + plan);
                 if (!controller) {
+                    debugger;
                     controller = stupidController;
                     console.warn('[Dispatcher] Cannot find resource controllers.' + plan + ', rendering corresponding view as static.');
                 }
@@ -90,15 +90,14 @@ module.exports = function (options) {
         var h,
             reqPath = req.route.path;
         registry = registry || req.registry;
-        config   = config   || registry.getConfig('middleware.dispatcher');
-        // read the plan from the config given the matched route and method
-        req.plan = config.plans[reqPath] &&
-            (config.plans[reqPath][req.route.method] || config.plans[reqPath].all);
+        // read the plan from the options given the matched route and method
+        req.plan = options.plans[reqPath] &&
+            (options.plans[reqPath][req.route.method] || options.plans[reqPath].all);
         if (!req.plan) {
             return next(new Error('No plan for route ' + reqPath));
         }
-        for (h in config.headers[reqPath]) {
-            res.setHeader(h, config.headers[reqPath][h]);
+        for (h in options.headers[reqPath]) {
+            res.setHeader(h, options.headers[reqPath][h]);
         }
         // initiate the recursive dispatch of the plan
         return dispatchPlan(req.plan, req, res, function done(err, result) {
