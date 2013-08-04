@@ -16,14 +16,13 @@ var path     = require('path'),
     Rig = function (options) {
         'use strict';
         var that = this,
-            cwd = process.cwd(),
+            cwd  = process.cwd(),
             staticPath,
             templateEngine;
 
         this.app = express();
 
         // register all the middlewares
-        debugger;
         this.registry = new Registry(new Config(path.resolve(cwd, options.config)));
         this.registry.register(path.resolve(__dirname, 'middleware'));
 

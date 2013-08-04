@@ -10,7 +10,7 @@ var fs       = require('fs'),
      */
     Registry = function (config) {
         'use strict';
-        this.__config__ = config;
+        this.__config__        = config;
         this.__resourceStore__ = {};
     };
 
