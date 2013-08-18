@@ -1,15 +1,15 @@
 /*jslint forin: true, nomen: true */
 
-var async = require('async'),
-    Rig   = require('../rig.js'),
+var async    = require('async'),
+    Rig      = require('../rig.js'),
+    registry = Rig.registry,
     stupidController = function (req, res, done) {
         done();
     };
 
 module.exports = function (options) {
     'use strict';
-    var registry,
-        dispatchPlan = function (plan, req, res, planDone) {
+    var dispatchPlan = function (plan, req, res, planDone) {
             var controller,
                 key,
                 toFlushInOrder,
@@ -90,7 +90,6 @@ module.exports = function (options) {
     return function dispatcher(req, res, next) {
         var h,
             reqPath = req.route.path;
-        registry = registry || Rig.registry;
         // read the plan from the options given the matched route and method
         req.plan = options.plans[reqPath] &&
             (options.plans[reqPath][req.route.method] || options.plans[reqPath].all);
