@@ -3,7 +3,7 @@
 var path     = require('path'),
     Config   = require('./lib/config'),
     Router   = require('./lib/router'),
-    Registry = require('./middleware/registry'),
+    Registry = require('./lib/registry'),
     HBAdapter = require('./lib/hb-adapter'),
     express  = require('express'),
 
@@ -23,18 +23,18 @@ var path     = require('path'),
         this.app = express();
 
         // register all the middlewares
-        this.registry = new Registry(new Config(path.resolve(cwd, options.config)));
-        this.registry.register(path.resolve(__dirname, 'middleware'));
+        Rig.registry = new Registry(new Config(path.resolve(cwd, options.config)));
+        Rig.registry.register(path.resolve(__dirname, 'middleware'));
 
         // special case for static relative path
-        staticPath = this.registry.getConfig('middleware.static');
+        staticPath = Rig.registry.getConfig('middleware.static');
         if (staticPath) {
             staticPath = path.resolve(cwd, staticPath);
         }
 
         // special case for hb-adapter
-        this.registry.register('lib.hb-adapter', HBAdapter);
-        this.registry.register({
+        Rig.registry.register('lib.hb-adapter', HBAdapter);
+        Rig.registry.register({
             'middleware.router'        : function () {return that.app.router; },
             'middleware.static'        : express.static.bind(null, staticPath),
             'middleware.logger'        : express.logger,
@@ -61,11 +61,11 @@ var path     = require('path'),
         });
 
         this.router = new Router({
-            registry: this.registry,
+            registry: Rig.registry,
             routes  : options.routes
         });
 
-        templateEngine = this.registry.get(options.templateEngine || 'lib.hb-adapter');
+        templateEngine = Rig.registry.get(options.templateEngine || 'lib.hb-adapter');
         if (templateEngine) {
             this.app.engine('.html', templateEngine);
         }
@@ -82,7 +82,7 @@ Rig.prototype.engine = function () {
  */
 Rig.prototype.register = function (name, configurable) {
     'use strict';
-    this.registry.register(name, configurable);
+    Rig.registry.register(name, configurable);
 };
 
 /**
@@ -91,8 +91,7 @@ Rig.prototype.register = function (name, configurable) {
 Rig.prototype.route = function () {
     'use strict';
     console.log('[Rig] Mapping routes with registered resources:');
-    console.log(Object.keys(this.registry.get()));
-    this.app.use(this.registry.middleware());
+    console.log(Object.keys(Rig.registry.get()));
     this.router.map(this.app);
 };
 

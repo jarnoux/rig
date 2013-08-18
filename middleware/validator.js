@@ -51,8 +51,8 @@ module.exports = function (options) {
     /**
      * @function
      * @name  validator
-     * @param  {Request}   req  
-     * @param  {Reqponse}   res  
+     * @param  {Request}   req
+     * @param  {Reqponse}   res
      * @param  {Function} next
      */
     return function validator(req, res, next) {

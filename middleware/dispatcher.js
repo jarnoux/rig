@@ -1,6 +1,7 @@
 /*jslint forin: true, nomen: true */
 
 var async = require('async'),
+    Rig   = require('../rig.js'),
     stupidController = function (req, res, done) {
         done();
     };
@@ -25,7 +26,6 @@ module.exports = function (options) {
                 // if there is no controller, just render the static template with nothing
                 controller = registry.get('controllers.' + plan);
                 if (!controller) {
-                    debugger;
                     controller = stupidController;
                     console.warn('[Dispatcher] Cannot find resource controllers.' + plan + ', rendering corresponding view as static.');
                 }
@@ -40,6 +40,7 @@ module.exports = function (options) {
                         for (key in preRenderedBits[plan]) {
                             preRenderedBits[key] = preRenderedBits[plan][key];
                         }
+                        preRenderedBits._csrf = req.session._csrf;
                         return res.render(plan + '.html', preRenderedBits, planDone);
                     });
                 }
@@ -89,7 +90,7 @@ module.exports = function (options) {
     return function dispatcher(req, res, next) {
         var h,
             reqPath = req.route.path;
-        registry = registry || req.registry;
+        registry = registry || Rig.registry;
         // read the plan from the options given the matched route and method
         req.plan = options.plans[reqPath] &&
             (options.plans[reqPath][req.route.method] || options.plans[reqPath].all);
