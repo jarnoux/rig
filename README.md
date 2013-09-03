@@ -6,5 +6,7 @@ A barepipe platform for node webapps. Rig is a set of middlewares and libraries 
 ## So how is this thing useful, again?
 It makes it easy to write, configure, and route pieces of code together when you write a web application or a webservice.
 
+## Anything uses this?
+Yep, [bookkeepee.com](http://bookkeepee.com:3000) is an example of app that's running rig.
 ## Okay, how do I start?
 Check [this](https://github.com/jarnoux/rig/wiki/Quickstart) very small quickstart, it takes only a few minutes.
