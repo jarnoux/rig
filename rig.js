@@ -69,6 +69,15 @@ var path     = require('path'),
         if (templateEngine) {
             this.app.engine('.html', templateEngine);
         }
+
+        // If we have the resources, we're good to go!
+        if (options.resources) {
+            if (!(options.resources instanceof Array)) {
+                throw new Error('The the Rig constructor expects an Array in the "resource" parameter.');
+            }
+            options.resources.map(this.register);
+            this.route();
+        }
     };
 
 Rig.prototype.engine = function () {
