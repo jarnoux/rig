@@ -2,3 +2,4 @@ doc
 .travis.yml
 .gitignore
 .npmignore
+.DS_Store
