@@ -1,7 +1,7 @@
 {
   "name": "rig",
   "description": "A barepipe platform for node webapps",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "rig.js",
   "dependencies": {
     "express": "3.x",
